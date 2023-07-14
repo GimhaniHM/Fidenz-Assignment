@@ -7,6 +7,7 @@ const Home = () => {
   const [weatherData, setWeatherData] = useState([]);
 
   useEffect(() => {
+    // Function to fetch weather data
     const fetchData = async () => {
       try {
         const response = await axios.get(
@@ -19,6 +20,12 @@ const Home = () => {
     };
 
     fetchData();
+
+     // Set interval to fetch data every 5 minutes
+    const interval = setInterval(fetchData, 5 * 60 * 1000);
+    return () => {
+        clearInterval(interval);
+      };
   }, []);
 
   const getCityIds = () => {
