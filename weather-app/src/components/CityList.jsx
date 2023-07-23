@@ -17,7 +17,7 @@ const CityList = () => {
   const fetchData = async (cityId) => {
     try {
       const response = await axios.get(
-        `http://api.openweathermap.org/data/2.5/weather?id=${cityId}&appid=1891735cfb394923413c67a90e76954f`
+        `http://api.openweathermap.org/data/2.5/weather?id=${cityId}&appid=${process.env.REACT_APP_WEATHER_API_KEY}`
       );
       setWeatherData((prevData) => {
         const newData = [...prevData];
