@@ -52,7 +52,7 @@ body {
 
 }
 
-.home_card_container{
+.city_list_container{
   width:80%;
   display: flex;
   flex-wrap: wrap;
