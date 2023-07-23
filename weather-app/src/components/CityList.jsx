@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Card from './Card';
 import List from './../cities.json';
+import { API_KEY, CARD_IMAGES } from '../shared/constants.js';
 
 const CityList = () => {
 
@@ -17,7 +18,7 @@ const CityList = () => {
   const fetchData = async (cityId) => {
     try {
       const response = await axios.get(
-        `http://api.openweathermap.org/data/2.5/weather?id=${cityId}&appid=${process.env.REACT_APP_WEATHER_API_KEY}`
+        `http://api.openweathermap.org/data/2.5/weather?id=${cityId}&appid=${API_KEY}`
       );
       setWeatherData((prevData) => {
         const newData = [...prevData];
@@ -81,7 +82,7 @@ const CityList = () => {
             <Card
               key={idx}
               cityName={cityData.CityName}
-              img={getCardImage(idx)}
+              img={CARD_IMAGES(idx)}
               status={data.weather[0].description}
               temp={convertKelvinToCelsius(data.main.temp)}
               pressure={data.main.pressure}
@@ -102,7 +103,7 @@ const CityList = () => {
   );
 };
 
-const getCardImage = (idx) => {
+/*const getCardImage = (idx) => {
   switch (idx) {
     case 0:
       return require('./../img/1.png');
@@ -121,7 +122,7 @@ const getCardImage = (idx) => {
     default:
       return null;
   }
-};
+}; */
 
 const convertKelvinToCelsius = (temp) => {
   return Math.round(temp - 273.15);
