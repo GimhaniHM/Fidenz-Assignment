@@ -1,7 +1,7 @@
 // Constants related to the API
 export const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
 
-// Constants for card images
+// for card images
 export const CARD_IMAGES = (idx) => {
     switch (idx) {
       case 0:
@@ -21,4 +21,9 @@ export const CARD_IMAGES = (idx) => {
       default:
         return null;
     }
+  };
+
+// for Celcius value
+  export const CelciusValue = (temp) => {
+    return Math.round(temp - 273.15);
   };

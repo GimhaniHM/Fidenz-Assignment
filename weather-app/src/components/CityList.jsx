@@ -4,7 +4,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Card from './Card';
 import List from './../cities.json';
-import { API_KEY, CARD_IMAGES } from '../shared/constants.js';
+import { CARD_IMAGES, CelciusValue } from '../shared/constants.js';
+import { getWeatherDataUrl } from '../shared/APIHelper.js';
 
 const CityList = () => {
 
@@ -17,9 +18,7 @@ const CityList = () => {
   // Function to fetch weather data for a specific city
   const fetchData = async (cityId) => {
     try {
-      const response = await axios.get(
-        `http://api.openweathermap.org/data/2.5/weather?id=${cityId}&appid=${API_KEY}`
-      );
+      const response = await axios.get(getWeatherDataUrl(cityId));
       setWeatherData((prevData) => {
         const newData = [...prevData];
         const cityIndex = newData.findIndex((data) => data.id === cityId);
@@ -84,7 +83,7 @@ const CityList = () => {
               cityName={cityData.CityName}
               img={CARD_IMAGES(idx)}
               status={data.weather[0].description}
-              temp={convertKelvinToCelsius(data.main.temp)}
+              temp={CelciusValue(data.main.temp)}
               pressure={data.main.pressure}
               humidity={data.main.humidity}
               visibility={data.visibility / 1000}
@@ -124,8 +123,8 @@ const CityList = () => {
   }
 }; */
 
-const convertKelvinToCelsius = (temp) => {
+/*const CelciusValue = (temp) => {
   return Math.round(temp - 273.15);
-};
+}; */
 
 export default CityList;
