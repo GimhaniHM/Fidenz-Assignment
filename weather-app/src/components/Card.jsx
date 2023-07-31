@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Card = ({ cityName, img, status, temp, pressure, humidity, visibility, sunrise, sunset, windSpeed, windDegree, tempMin, tempMax,time }) => {
+const Card = ({ cityName, countryName, img, status, temp, pressure, humidity, visibility, sunrise, sunset, windSpeed, windDegree, tempMin, tempMax,time }) => {
   const divStyle = {
     backgroundImage: `url(${img})`,
     backgroundSize: 'cover',
@@ -12,7 +12,7 @@ const Card = ({ cityName, img, status, temp, pressure, humidity, visibility, sun
       <div className="card_top" style={divStyle}>
         <div className="card_top--left">
           <div>
-            <p className="city">{cityName}, LK</p>
+            <p className="city">{cityName}, {countryName}</p>
             <p className="time">{time}</p>
           </div>
           <div className="weather">
