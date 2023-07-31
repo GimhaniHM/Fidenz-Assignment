@@ -1,24 +1,12 @@
-import React from 'react';
-import { useQuery } from 'react-query';
+import React, { useEffect, useState } from 'react';
 import Card from '../components/Card';
 import axios from 'axios';
 import List from './../cities.json';
 
 const Home = () => {
-  //const [weatherData, setWeatherData] = useState([]);
-  //const [loading, setLoading] = useState(true);
+  const [weatherData, setWeatherData] = useState([]);
 
-  const {data, isLoading } = useQuery("data", () => {
-      return fetch(
-        `http://api.openweathermap.org/data/2.5/group?id=${getCityIds()}&appid=1891735cfb394923413c67a90e76954f`
-      )
-      .then((response) => response.json());
-
-  });
-
-  console.log(data);
-
-  /*useEffect(() => {
+  useEffect(() => {
     // Function to fetch weather data
     const fetchData = async () => {
       try {
@@ -26,34 +14,28 @@ const Home = () => {
           `http://api.openweathermap.org/data/2.5/group?id=${getCityIds()}&appid=1891735cfb394923413c67a90e76954f`
         );
         setWeatherData(response.data.list);
-        setLoading(false);
       } catch (error) {
         console.error('Error fetching weather data:', error);
       }
-    }; 
+    };
 
-  fetchData();
+    fetchData();
 
-  // Set interval to fetch data every 5 minutes
-  const interval = setInterval(fetchData, 60 * 5000);
-  return () => {
-      clearInterval(interval);
-    }; 
-}, []); */
+     // Set interval to fetch data every 5 minutes
+    const interval = setInterval(fetchData, 5 * 60 * 1000);
+    return () => {
+        clearInterval(interval);
+      };
+  }, []);
 
-const getCityIds = () => {
-  return List.List.map((city) => city.CityCode).join(',');
-};
+  const getCityIds = () => {
+    return List.List.map((city) => city.CityCode).join(',');
+  };
 
-const cityData = data?.list || [];
-
-return (
-  <div className="home_container">
-     {isLoading ? (
-      <div>Loading...</div>
-    ) : ( 
+  return (
+    <div className="home_container">
       <div className="home_card_container">
-        {data.list.map((data, idx) => (
+        {weatherData.map((data, idx) => (
           <Card
             key={idx}
             cityName={List.List[idx].CityName}
@@ -71,36 +53,10 @@ return (
             tempMax={data.main.temp_max}
             time={new Date().toLocaleTimeString()}
           />
-        ))} 
+        ))}
       </div>
-    )}
-  </div>
-);
-};
-
-const getCardImage = (idx) => {
-  switch (idx) {
-    case 0:
-      return require('./../img/1.png');
-    case 1:
-      return require('./../img/2.png');
-    case 2:
-      return require('./../img/3.png');
-    case 3:
-      return require('./../img/4.png');
-    case 4:
-      return require('./../img/5.png');
-    case 5:
-      return require('./../img/3.png');
-    case 6:
-      return require('./../img/2.png');
-    default:
-      return null;
-  }
-};
-
-const convertKelvinToCelsius = (temp) => {
-  return Math.round(temp - 273.15);
+    </div>
+  );
 };
 
 export default Home;
